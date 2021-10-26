@@ -5,6 +5,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-playground/validator/v10"
 	"go-blog/app"
+	"go-blog/app/database"
 	middleware2 "go-blog/app/middleware"
 	"go-blog/controller/articles_controller"
 	"go-blog/repository/article_repository"
@@ -13,7 +14,7 @@ import (
 
 func Articles(r *chi.Router) *chi.Router {
 	repo := article_repository.NewRepository()
-	service := article_service.NewService(Db,validator.New(),repo)
+	service := article_service.NewService(database.Db,validator.New(),repo)
 	controller := articles_controller.NewController(service)
 	router := *r
 

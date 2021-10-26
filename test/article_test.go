@@ -145,11 +145,11 @@ func TestPutArticle(t *testing.T) {
 			dataJson,_ := json.Marshal(data)
 			reader := bytes.NewReader(dataJson)
 
-			request := httptest.NewRequest(http.MethodPost,app.ARTICLES,reader)
+			request := httptest.NewRequest(http.MethodPut,"/articles/6477da1b-29cc-4e6a-812b-bfe4d13167b4",reader)
 			request.Header.Add("Authorization", "Bearer token")
 			recorder := httptest.NewRecorder()
 			re.ServeHTTP(recorder,request)
-			assert.Equal(t,http.StatusForbidden,recorder.Code)
+			assert.Equal(t,http.StatusOK,recorder.Code)
 		})
 	})
 }

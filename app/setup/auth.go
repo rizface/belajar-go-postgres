@@ -5,6 +5,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	_ "github.com/lib/pq"
 	"go-blog/app"
+	"go-blog/app/database"
 	"go-blog/controller/user_controller"
 	"go-blog/helper"
 	"go-blog/repository/user_repository"
@@ -12,11 +13,11 @@ import (
 )
 
 func Auth(r *chi.Mux) *chi.Mux{
-	if Err != nil {
-		helper.PanicIfError(Err)
+	if database.Err != nil {
+		helper.PanicIfError(database.Err)
 	}
 	repo := user_repository.NewRepository()
-	service := user_service.NewService(Db, validator.New(),repo)
+	service := user_service.NewService(database.Db, validator.New(),repo)
 	controller := user_controller.NewController(service)
 
 	r.Post(app.REGISTER,controller.Register)
